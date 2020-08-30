@@ -23,3 +23,7 @@ ISW-2020
 |  |__Unidad 3
 |  |__Unidad 4
 |
+
+Lienas Base:
+ - master: se utiliza para guardar los Trabajos Prácticos ya corregidos como tambien la bibliografía, documentos y papers
+ - por-revisar: se utiliza para guardar los Items que todavía no estan listos. Una vez que fue entregado ese Item y no se va a modificar mas se hace el merge de las dos ramas
