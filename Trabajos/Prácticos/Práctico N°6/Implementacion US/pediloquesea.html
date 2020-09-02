@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 
 <head>
     <meta charset="utf-8">
@@ -46,6 +46,9 @@
     </style>
     <!-- Custom styles for this template -->
     <link href="jumbotron.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+    <script src="/js/logica.js"></script>
+
 </head>
 
 <body>
@@ -75,7 +78,6 @@
     </nav>
 
     <main role="main">
-
         <!-- Main jumbotron for a primary marketing message or call to action -->
         <div class="jumbotron">
             <div class="container">
@@ -85,345 +87,346 @@
         </div>
 
         <div class="container">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#quequeres">¿Qué querés?</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#dedonde">¿De dónde lo buscamos?</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#adonde">¿A dónde querés que lo llevemos?</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#cuando">¿Cuándo lo queres recibir?</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#formadepago">¿Cómo lo vas a pagar?</a>
-                </li>
-            </ul>
-            <div id="myTabContent" class="tab-content">
-                <div class="tab-pane fade active show" id="quequeres">
-                    <div class="form-group">
-                        <label for="exampleTextarea">Describí qué querés que busquemos:</label>
-                        <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8">
-
-                            <!-- Hay que elegir que formato usamos para subir la foto-->
-
-                            <!-- Este -->
-                            <label for="exampleInputFile">Si querés nos podés agregar una foto:</label>
-                            <input type="file" accept=".jpg" class="form-control-file" id="exampleInputFile"
-                                aria-describedby="fileHelp">
-                            <small id="fileHelp" class="form-text text-muted">Se acepta solo formato JPG, tamaño máximo:
-                                5 MB</small>
-
-                            <!-- O este -->
-                            <div class="form-group">
-                                <div class="input-group mb-3">
-                                    <div class="custom-file">
-                                        <input type="file" accept=".jpg" class="custom-file-input"
-                                            id="inputGroupFile02">
-                                        <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-                                    </div>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="">Upload</span>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-                        </div>
-                        <div class="col-md-4">
-                            <p><a class="btn btn-primary" href="#dedonde" role="button">Siguiente &raquo;</a></p>
-                        </div>
-                    </div>
+            <div ng-controller="myCtrl">
+                <div class="progress ">
+                    <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="25"
+                        aria-valuemin="0" aria-valuemax="100" id="barra"></div>
                 </div>
-                <div class="tab-pane fade active show" id="dedonde">
-                    <div class="form-group">
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"
-                                checked="">
-                            <label class="custom-control-label" for="customRadio1">Seleccionar lugar con Google
-                                Maps</label>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="" id="1" ng-click="cambiar('1')">¿Qué querés?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="" id="2" ng-click="cambiar('2')">¿De dónde lo buscamos?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" id="3" ng-click="cambiar('3')">¿A dónde querés que lo llevemos?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" id="4" ng-click="cambiar('4')">¿Cuándo lo queres recibir?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" id="5" ng-click="cambiar('5')">¿Cómo lo vas a pagar?</a>
+                    </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active show" id="quequeres" ng-show="mostrar == '1'">
+                        <div class="form-group">
+                            <label for="exampleTextarea">Describí qué querés que busquemos:</label>
+                            <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
                         </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio2">Ingresar Direccion</label>
-                        </div>
-
-
-                        <div>
-                            <div class="row">
-                                <div class="form-group col-md-8">
-                                    <h5>Arrastre el marcador a la ubicación deseada</h5>
-                                </div>
-                                <div class="col-md-4 ">
-                                    <p><a class="btn btn-primary" href="#adonde" role="button">Siguiente &raquo;</a>
-                                    </p>
-                                </div>
-                            </div>
-                            <style>
-                                #map {
-                                    height: 400px;
-                                    width: 100%;
-                                }
-                            </style>
-                            <div id="map"></div>
-                            <script>
-                                function initMap() {
-                                    var miMarcador = new google.maps.LatLng(-31.4286287, -64.1848189);
-                                    var mapOptions = {
-                                        zoom: 12,
-                                        center: miMarcador
-                                    }
-                                    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-                                    var marker = new google.maps.Marker({
-                                        position: miMarcador,
-                                        map: map,
-                                        draggable: true,
-                                        title: "Arrastrame!"
-                                    });
-                                }
-                            </script>
-                            <script async defer
-                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN3hl8CILMQex6Sv2xo0rxrhetOd1Zcs8&callback=initMap">
-                            </script>
-
-
-                        </div>
-                        <div>
-                            <!-- Ingresa la direccion a mano-->
-                            <h5>Ingrese los siguientes datos</h5>
-                            <div class="row">
-                                <div class="form-group col-md-8">
-                                    <label for="exampleInputEmail1">Calle: </label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" placeholder="Ingrese calle">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="exampleInputEmail1">Número: </label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" placeholder="Ingrese número">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1">Piso: </label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" placeholder="Ingrese piso">
-                                    <small>Opcional</small>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1">Departamento: </label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" placeholder="Ingrese departamento">
-                                    <small>Opcional</small>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleSelect1">Ciudad</label>
-                                <select class="form-control" id="exampleSelect1">
-                                    <option>Córdoba</option>
-                                    <option>Buenos Aires</option>
-                                    <option>Rosario</option>
-                                    <option>Salta</option>
-                                    <option>Santa Fé</option>
-                                </select>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-8">
-                                    <label for="exampleTextarea">Agregá más detalles:</label>
-                                    <textarea class="form-control" id="exampleTextarea" rows="2"></textarea>
-                                    <small>Podés agreagar información adicional de cómo buscar tu pedido</small>
-                                </div>
-                                <div class="col-md-4 ">
-                                    <p><a class="btn btn-primary" href="#adonde" role="button">Siguiente &raquo;</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="tab-pane fade active show" id="adonde">
-                    <div class="form-group">
-                        <div>
-                            <!-- Ingresa la direccion a mano-->
-                            <h4>Ingresar Dirección de Destino</h4>
-                            <div class="row">
-                                <div class="form-group col-md-8">
-                                    <label for="exampleInputEmail1">Calle: </label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" placeholder="Ingrese calle">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="exampleInputEmail1">Número: </label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" placeholder="Ingrese número">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1">Piso: </label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" placeholder="Ingrese piso">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1">Departamento: </label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" placeholder="Ingrese departamento">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleSelect1">Ciudad</label>
-                                <select class="form-control" id="exampleSelect1">
-                                    <option>Córdoba</option>
-                                    <option>Buenos Aires</option>
-                                    <option>Rosario</option>
-                                    <option>Salta</option>
-                                    <option>Santa Fé</option>
-                                </select>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-8">
-                                    <label for="exampleTextarea">Agregá más detalles:</label>
-                                    <textarea class="form-control" id="exampleTextarea" rows="2"></textarea>
-                                    <small>Podés agreagar información adicional de cómo buscar tu pedido</small>
-                                </div>
-                                <div class="col-md-4 ">
-                                    <p><a class="btn btn-primary" href="#formadepago" role="button">Siguiente
-                                            &raquo;</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-
-                <div class="tab-pane fade active show" id="cuando">
-                    <h4>Ingrese cuando lo quiere recibir</h4>
-                    <div>
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="radioCuando1" name="customRadio1"
-                                        class="custom-control-input" checked="">
-                                    <label class="custom-control-label" for="radioCuando1">Lo antes posible</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="radioCuando2" name="customRadio1"
-                                        class="custom-control-input">
-                                    <label class="custom-control-label" for="radioCuando2">Programar entrega</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <p><a class="btn btn-primary" href="#formadepago" role="button">Siguiente
-                                        &raquo;</a></p>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-4">
-                                <label for="exampleInputEmail1">Hora de entrega: </label>
-                                <input type="time" class="form-control " min="2020-09" max="3000-12"
-                                    id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese calle">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="exampleInputEmail1">Fecha de entrega: </label>
-                                <input type="date" class="form-control " min="2020-09" max="3000-12"
-                                    id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese calle">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane fade active show " id="formadepago">
-                    <div>
-                        <h4>Ingrese la forma de pago</h4>
                         <div class="row">
                             <div class="col-md-8">
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="radioTarjeta1" name="customRadio2"
-                                        class="custom-control-input" checked="">
-                                    <label class="custom-control-label" for="radioTarjeta1">Pago en efectivo</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="radioTarjeta2" name="customRadio2"
-                                        class="custom-control-input">
-                                    <label class="custom-control-label" for="radioTarjeta2">Pago con tarjeta</label>
+
+                                <!-- Hay que elegir que formato usamos para subir la foto-->
+
+                                <!-- Este -->
+                                <label for="exampleInputFile">Si querés nos podés agregar una foto:</label>
+                                <input type="file" accept=".jpg" class="form-control-file" id="exampleInputFile"
+                                    aria-describedby="fileHelp">
+                                <small id="fileHelp" class="form-text text-muted">Se acepta solo formato JPG, tamaño
+                                    máximo:
+                                    5 MB</small>
+
+                                <!-- O este -->
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".jpg" class="custom-file-input"
+                                                id="inputGroupFile02">
+                                            <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                                        </div>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="">Upload</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <h5 class="alert alert-dismissible alert-info">Total a pagar: xxxxx</h5>
+                                <p><a class="btn btn-primary" href="" role="button" ng-click="cambiar('2')">Siguiente &raquo;</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade active show" id="dedonde" ng-show="mostrar == '2'">
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"
+                                    checked="">
+                                <label class="custom-control-label" for="customRadio1">Seleccionar lugar con Google
+                                    Maps</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio2">Ingresar Direccion</label>
+                            </div>
+
+
+                            <div>
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <h5>Arrastre el marcador a la ubicación deseada</h5>
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <p><a class="btn btn-primary" href="" role="button" ng-click="cambiar('3')">Siguiente &raquo;</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <style>
+                                    #map {
+                                        height: 400px;
+                                        width: 100%;
+                                    }
+                                </style>
+                                <div id="map"></div>
+                                <script>
+                                    function initMap() {
+                                        var miMarcador = new google.maps.LatLng(-31.4286287, -64.1848189);
+                                        var mapOptions = {
+                                            zoom: 12,
+                                            center: miMarcador
+                                        }
+                                        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                                        var marker = new google.maps.Marker({
+                                            position: miMarcador,
+                                            map: map,
+                                            draggable: true,
+                                            title: "Arrastrame!"
+                                        });
+                                    }
+                                </script>
+                                <script async defer
+                                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBN3hl8CILMQex6Sv2xo0rxrhetOd1Zcs8&callback=initMap">
+                                </script>
+
+
+                            </div>
+                            <div>
+                                <!-- Ingresa la direccion a mano-->
+                                <h5>Ingrese los siguientes datos</h5>
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <label for="exampleInputEmail1">Calle: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" placeholder="Ingrese calle">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">Número: </label>
+                                        <input type="number" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" placeholder="Ingrese número">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Piso: </label>
+                                        <input type="number" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" placeholder="Ingrese piso">
+                                        <small>Opcional</small>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Departamento: </label>
+                                        <input type="number" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" placeholder="Ingrese departamento">
+                                        <small>Opcional</small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleSelect1">Ciudad</label>
+                                    <select class="form-control" id="exampleSelect1">
+                                        <option>Córdoba</option>
+                                        <option>Buenos Aires</option>
+                                        <option>Rosario</option>
+                                        <option>Salta</option>
+                                        <option>Santa Fé</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <label for="exampleTextarea">Agregá más detalles:</label>
+                                        <textarea class="form-control" id="exampleTextarea" rows="2"></textarea>
+                                        <small>Podés agreagar información adicional de cómo buscar tu pedido</small>
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <p><a class="btn btn-primary" href="" role="button" ng-click="cambiar('3')">Siguiente &raquo;</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade active show" id="adonde" ng-show="mostrar == '3'">
+                        <div class="form-group">
+                            <div>
+                                <!-- Ingresa la direccion a mano-->
+                                <h4>Ingresar Dirección de Destino</h4>
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <label for="exampleInputEmail1">Calle: </label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" placeholder="Ingrese calle">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="exampleInputEmail1">Número: </label>
+                                        <input type="number" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" placeholder="Ingrese número">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Piso: </label>
+                                        <input type="number" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" placeholder="Ingrese piso">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Departamento: </label>
+                                        <input type="number" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" placeholder="Ingrese departamento">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleSelect1">Ciudad</label>
+                                    <select class="form-control" id="exampleSelect1">
+                                        <option>Córdoba</option>
+                                        <option>Buenos Aires</option>
+                                        <option>Rosario</option>
+                                        <option>Salta</option>
+                                        <option>Santa Fé</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <label for="exampleTextarea">Agregá más detalles:</label>
+                                        <textarea class="form-control" id="exampleTextarea" rows="2"></textarea>
+                                        <small>Podés agreagar información adicional de cómo buscar tu pedido</small>
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <p><a class="btn btn-primary" href="" role="button" ng-click="cambiar('4')">Siguiente
+                                                &raquo;</a></p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade active show" id="cuando" ng-show="mostrar == '4'">
+                        <h4>Ingrese cuando lo quiere recibir</h4>
+                        <div>
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="radioCuando1" name="customRadio1"
+                                            class="custom-control-input" checked="">
+                                        <label class="custom-control-label" for="radioCuando1">Lo antes posible</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="radioCuando2" name="customRadio1"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="radioCuando2">Programar entrega</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <p><a class="btn btn-primary" href="" role="button" ng-click="cambiar('5')">Siguiente
+                                            &raquo;</a></p>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="exampleInputEmail1">Hora de entrega: </label>
+                                    <input type="time" class="form-control " min="2020-09" max="3000-12"
+                                        id="exampleInputEmail1" aria-describedby="emailHelp"
+                                        placeholder="Ingrese calle">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="exampleInputEmail1">Fecha de entrega: </label>
+                                    <input type="date" class="form-control " min="2020-09" max="3000-12"
+                                        id="exampleInputEmail1" aria-describedby="emailHelp"
+                                        placeholder="Ingrese calle">
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div>
-                        <!-- Pago en efectivo-->
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">¿Con cuánto va a pagar?: </label>
-                            <input type="number" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Ingrese monto">
-                            <small>El monto se utiliza para que el cadete lleve el cambio justo</small>
+                    <div class="tab-pane fade active show " id="formadepago" ng-show="mostrar == '5'">
+                        <div>
+                            <h4>Ingrese la forma de pago</h4>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="radioTarjeta1" name="customRadio2"
+                                            class="custom-control-input" checked="">
+                                        <label class="custom-control-label" for="radioTarjeta1">Pago en efectivo</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="radioTarjeta2" name="customRadio2"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="radioTarjeta2">Pago con tarjeta</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5 class="alert alert-dismissible alert-info">Total a pagar: xxxxx</h5>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div>
-                        <!-- Pago con tarjeta-->
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Titular: </label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                placeholder="Ingrese el nombre como aparece en la tarjeta">
+                        <div>
+                            <!-- Pago en efectivo-->
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">¿Con cuánto va a pagar?: </label>
+                                <input type="number" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="Ingrese monto">
+                                <small>El monto se utiliza para que el cadete lleve el cambio justo</small>
+                            </div>
+                        </div>
+
+                        <div>
+                            <!-- Pago con tarjeta-->
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Titular: </label>
+                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp"
+                                    placeholder="Ingrese el nombre como aparece en la tarjeta">
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="exampleInputEmail1">Número de tarjeta: </label>
+                                    <input type="number" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Ingrese número">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="exampleInputEmail1">Fecha de Vencimiento: </label>
+                                    <input type="month" class="form-control " min="2020-09" max="3000-12"
+                                        id="exampleInputEmail1" aria-describedby="emailHelp"
+                                        placeholder="Ingrese calle">
+                                </div>
+                                <div class="form-group col-md-4">
+
+                                    <label for="exampleInputEmail1">CVC: </label>
+                                    <input type="number" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" placeholder="Ingrese cvc">
+                                    <small>
+                                        <a class="nav-link"
+                                            href="https://help.gopay.com/en/knowledge-base/security/what-is-cvv-cvc-code-and-where-can-i-find-it-on-my-card"
+                                            target="_blank"><img src="/CSS/question-circle-regular.svg" height="20em">
+                                            ¿Qué
+                                            es CVC?</a>
+                                    </small>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-4">
-                                <label for="exampleInputEmail1">Número de tarjeta: </label>
-                                <input type="number" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Ingrese número">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="exampleInputEmail1">Fecha de Vencimiento: </label>
-                                <input type="month" class="form-control " min="2020-09" max="3000-12"
-                                    id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese calle">
-                            </div>
-                            <div class="form-group col-md-4">
-
-                                <label for="exampleInputEmail1">CVC: </label>
-                                <input type="number" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Ingrese cvc">
-                                <small>
-                                    <a class="nav-link"
-                                        href="https://help.gopay.com/en/knowledge-base/security/what-is-cvv-cvc-code-and-where-can-i-find-it-on-my-card"
-                                        target="_blank"><img src="/CSS/question-circle-regular.svg" height="20em">
-                                        ¿Qué
-                                        es CVC?</a>
-                                </small>
+                            <div class="col-md-8"></div>
+                            <div class="col-md-4">
+                                <p><a class="btn btn-primary" href="" role="button" ng-click="confirmar()">Confirmar Pago
+                                        &raquo;</a></p>
                             </div>
                         </div>
                     </div>
+                    
 
-                    <div class="row">
-                        <div class="col-md-8"></div>
-                        <div class="col-md-4">
-                            <p><a class="btn btn-primary" href="#formadepago" role="button">Confirmar Pago
-                                    &raquo;</a></p>
-                        </div>
-                    </div>
                 </div>
-
-
-                <div class="progress ">
-                    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-
             </div>
         </div>
 
