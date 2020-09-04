@@ -1,5 +1,15 @@
 var myApp = angular.module("myApp", []);
 
+function mostrarFoto() {
+    var file = document.getElementById('imagenDescriptiva').files[0];
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var image = document.getElementById("imagen");
+        image.src = e.target.result;
+    }
+    reader.readAsDataURL(file);
+}
+
 myApp.controller("myCtrl", function ($scope, $http){
     $scope.mostrar = "1"
     
