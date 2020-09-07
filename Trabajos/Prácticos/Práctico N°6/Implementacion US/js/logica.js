@@ -168,11 +168,15 @@ myApp.controller("myCtrl", function ($scope, $http) {
             if (cuandoHoraOk) {
                 progreso += 50;
                 document.getElementById("horaEntrega").classList.remove("is-invalid");
-            } else{document.getElementById("horaEntrega").classList.add("is-invalid");}
+            } else {
+                document.getElementById("horaEntrega").classList.add("is-invalid");
+            }
             if (cuandoFechaOk) {
                 progreso += 50;
                 document.getElementById("fechaEntrega").classList.remove("is-invalid");
-            } else{document.getElementById("fechaEntrega").classList.add("is-invalid");}
+            } else {
+                document.getElementById("fechaEntrega").classList.add("is-invalid");
+            }
         } else {
             progreso = 100;
         }
@@ -218,21 +222,22 @@ myApp.controller("myCtrl", function ($scope, $http) {
 
         var descripcionQue = $scope.descQue;
         try {
-            //ver el tamaño de la cadena
+            //intentar ver el tamaño de la cadena
             if (descripcionQue.length > 2 && descripcionQue.length < 500) {
                 queDescOK = true;
             } else {
                 queDescOK = false;
             }
-
+        } catch {}
+        try {
             //intentar ver el tamaño de la foto
             var file = document.getElementById('imagenDescriptiva').files[0];
             if ((((file.size / 1024) / 1024).toFixed(4)) > 5) {
                 fotoOk = false;
             }
-        } catch {
-            $scope.cambiar(paso);
-        }
+        } catch {}
+
+        $scope.cambiar(paso);
     }
 
     $scope.cambiarOrigenMaps = function (paso) {
@@ -272,6 +277,8 @@ myApp.controller("myCtrl", function ($scope, $http) {
         if ($scope.costoPedido != undefined && $scope.costoPedido >= 0) {
             costoPedidoOk = true;
             $scope.costo = $scope.costoPedido;
+            $scope.costoVar = $scope.costo * 0.02;
+            $scope.costoTot = $scope.costo + $scope.costoVar + $scope.costoFijo;
         } else {
             costoPedidoOk = false;
             $scope.costo = undefined;
