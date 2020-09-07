@@ -24,6 +24,12 @@
     <link rel="mask-icon" href="/docs/4.5/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
     <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+
     <meta name="msapplication-config" content="/docs/4.5/assets/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#563d7c">
 
@@ -93,7 +99,7 @@
                             aria-valuemin="0" aria-valuemax="100" id="barraQue">¿Qué querés?</div>
                     </div>
                     <div class="progress col-md-2">
-                        <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25"
+                        <div class="progress-bar" role="progressbar disable" style="width: 0%;" aria-valuenow="25"
                             aria-valuemin="0" aria-valuemax="100" id="barraOrigen">¿De dónde lo buscamos?</div>
                     </div>
                     <div class="progress col-md-3">
@@ -112,21 +118,25 @@
                 </div>
                 <ul class="nav nav-tabs row">
                     <li class="nav-item col-md-2 text-center">
-                        <a class="nav-link active" data-toggle="tab" href="" id="1" ng-click="cambiar('1')">¿Qué
+                        <a class="nav-link active disabled" data-toggle="tab" href="" id="1"
+                            ng-click="cambiar('1')">¿Qué
                             querés?</a>
                     </li>
                     <li class="nav-item col-md-2 text-center">
-                        <a class="nav-link" data-toggle="tab" href="" id="2" ng-click="cambiar('2')">¿De dónde lo
+                        <a class="nav-link disabled" data-toggle="tab" href="" id="2" ng-click="cambiar('2')">¿De dónde
+                            lo
                             buscamos?</a>
                     </li>
                     <li class="nav-item col-md-3 text-center">
-                        <a class="nav-link" href="" id="3" ng-click="cambiar('3')">¿A dónde querés que lo llevemos?</a>
+                        <a class="nav-link disabled" href="" id="3" ng-click="cambiar('3')">¿A dónde querés que lo
+                            llevemos?</a>
                     </li>
                     <li class="nav-item col-md-3 text-center">
-                        <a class="nav-link" href="" id="4" ng-click="cambiar('4')">¿Cuándo lo queres recibir?</a>
+                        <a class="nav-link disabled" href="" id="4" ng-click="cambiar('4')">¿Cuándo lo queres
+                            recibir?</a>
                     </li>
                     <li class="nav-item col-md-2 text-center">
-                        <a class="nav-link" href="" id="5" ng-click="cambiar('5')">¿Cómo lo vas a pagar?</a>
+                        <a class="nav-link disabled" href="" id="5" ng-click="cambiar('5')">¿Cómo lo vas a pagar?</a>
                     </li>
                 </ul>
                 <div id="myTabContent" class="tab-content">
@@ -181,7 +191,7 @@
                                 </div>
                                 <label for="costoPedido">¿Cuánto cuesta al retiralo?: </label>
                                 <input ng-model="costoPedido" type="number" class="form-control" id="costoPedido"
-                                    aria-describedby="emailHelp" placeholder="Ingrese monto">
+                                    aria-describedby="emailHelp" placeholder="Ingrese monto"><br>
                             </div>
 
                             <div ng-show="mapa == true" id="mapa">
@@ -189,10 +199,13 @@
                                     <div class="form-group col-md-8">
                                         <h5>Arrastre el marcador a la ubicación deseada</h5>
                                     </div>
-                                    <div class="col-md-4 ">
-                                        <p><a class="btn btn-primary" href="" role="button"
-                                                ng-click="cambiarOrigenMaps('3')">Siguiente &raquo;</a>
-                                        </p>
+                                    <div class="col-md-3 ">
+                                        <button class="btn btn-secondary" href="" role="button"
+                                            ng-click="cambiarOrigenMaps('1')" id="btnDeDondeMapa">Anterior
+                                            &raquo;</button>
+                                        <button class="btn btn-primary" href="" role="button"
+                                            ng-click="cambiarOrigenMaps('3')" id="btnDeDondeMapa">Siguiente
+                                            &raquo;</button>
                                     </div>
                                 </div>
                                 <style>
@@ -246,7 +259,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="dptoOrigen">Departamento: </label>
-                                        <input ng-model="dptoOrigen" type="number" class="form-control" id="dptoOrigen"
+                                        <input ng-model="dptoOrigen" type="text" class="form-control" id="dptoOrigen"
                                             placeholder="Ingrese departamento">
                                         <small>Opcional</small>
                                     </div>
@@ -266,8 +279,11 @@
                                         <small>Podés agreagar información adicional de cómo buscar tu pedido</small>
                                     </div>
                                     <div class="col-md-4 ">
+                                        <button class="btn btn-secondary" href="" role="button"
+                                            ng-click="cambiarOrigenManual('1')" id="btnDeDondeMano">Anterior
+                                            &raquo;</button>
                                         <button class="btn btn-primary" href="" role="button"
-                                            ng-click="cambiarOrigenManual('3')">Siguiente
+                                            ng-click="cambiarOrigenManual('3')" id="btnDeDondeMano">Siguiente
                                             &raquo;</button>
                                     </div>
                                 </div>
@@ -297,11 +313,13 @@
                                         <label for="pisoDestino">Piso: </label>
                                         <input ng-model="pisoDestino" type="number" class="form-control"
                                             id="pisoDestino" placeholder="Ingrese piso">
+                                        <small>Opcional</small>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="dptoDestino">Departamento: </label>
-                                        <input ng-model="dptoDestino" type="number" class="form-control"
-                                            id="dptoDestino" placeholder="Ingrese departamento">
+                                        <input ng-model="dptoDestino" type="text" class="form-control" id="dptoDestino"
+                                            placeholder="Ingrese departamento">
+                                        <small>Opcional</small>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -319,6 +337,9 @@
                                         <small>Podés agreagar información adicional de cómo entregar tu pedido</small>
                                     </div>
                                     <div class="col-md-4 ">
+                                        <button class="btn btn-secondary" href="" role="button"
+                                            ng-click="cambiarDestino('2')">Anterior
+                                            &raquo;</button>
                                         <button class="btn btn-primary" href="" role="button"
                                             ng-click="cambiarDestino('4')">Siguiente
                                             &raquo;</button>
@@ -345,12 +366,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
+                                    <button class="btn btn-secondary" href="" role="button"
+                                        ng-click="cambiarCuando('3')">Anterior
+                                        &raquo;</button>
                                     <button class="btn btn-primary" href="" role="button"
                                         ng-click="cambiarCuando('5')">Siguiente
                                         &raquo;</button>
                                 </div>
 
                             </div>
+                            <br>
                             <div class="row" ng-show="programa == true">
                                 <div class="form-group col-md-4">
                                     <label for="horaEntrega">Hora de entrega: </label>
@@ -371,72 +396,132 @@
                             <h4>Ingrese la forma de pago</h4>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="radioTarjeta1" name="customRadio2"
-                                            class="custom-control-input" ng-click="efectivo = true">
-                                        <label class="custom-control-label" for="radioTarjeta1">Pago en efectivo</label>
+                                    <div class="">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="radioTarjeta1" name="customRadio2"
+                                                class="custom-control-input" ng-click="efectivo = true">
+                                            <label class="custom-control-label" for="radioTarjeta1">Pago en
+                                                efectivo</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="radioTarjeta2" name="customRadio2"
+                                                class="custom-control-input" ng-click="efectivo = false">
+                                            <label class="custom-control-label" for="radioTarjeta2">Pago con
+                                                tarjeta</label>
+                                        </div>
                                     </div>
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="radioTarjeta2" name="customRadio2"
-                                            class="custom-control-input" ng-click="efectivo = false">
-                                        <label class="custom-control-label" for="radioTarjeta2">Pago con tarjeta</label>
+                                    <div ng-show="efectivo == true">
+                                        <!-- Pago en efectivo-->
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">¿Con cuánto va a pagar?: </label>
+                                            <input ng-model="cantEfvo" type="number" class="form-control" id="cantEfvo"
+                                                aria-describedby="emailHelp" placeholder="Ingrese monto">
+                                            <small>El monto se utiliza para que el cadete lleve el cambio justo</small>
+                                        </div>
+                                    </div>
+
+                                    <div ng-show="efectivo == false">
+                                        <!-- Pago con tarjeta-->
+                                        <div class="form-group">
+                                            <label for="pagoTitular">Titular: </label>
+                                            <input ng-model="pagoTitular" type="text" class="form-control"
+                                                id="pagoTitular"
+                                                placeholder="Ingrese el nombre como aparece en la tarjeta">
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-4">
+                                                <label for="numTarjeta">Número de tarjeta: </label>
+                                                <input ng-model="numTarjeta" type="number" class="form-control"
+                                                    id="numTarjeta" placeholder="Ingrese número">
+                                            </div>
+
+                                            <div class="form-group col-md-4">
+                                                <label for="vencimiento">Fecha de Vencimiento: </label>
+                                                <input ng-model="vencimiento" type="month" class="form-control "
+                                                    min="2020-09" max="3000-12" id="vencimiento"
+                                                    placeholder="Ingrese calle">
+                                            </div>
+                                            <div class="form-group col-md-4">
+
+                                                <label for="exampleInputEmail1">CVC: </label>
+                                                <input ng-model="CVC" type="number" class="form-control" id="CVC"
+                                                    placeholder="Ingrese cvc">
+                                                <small>
+                                                    <button class="btn btn-outline-secondary btn-sm" data-toggle="modal"
+                                                        data-target="#modalCVC"><img
+                                                            src="/CSS/question-circle-regular.svg" height="20em">
+                                                        ¿Qué
+                                                        es CVC?</button>
+                                                </small>
+                                                <div class="modal" id="modalCVC">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Ayuda CVC</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>El CVC son los 3 dígitos de seguridad que se
+                                                                    encuentran detras de
+                                                                    la tarjeta de crédito</p>
+                                                                <img src="/CSS/img_cvc.png" height="Nature"
+                                                                    class="embed-responsive">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button data-dismiss="modal" type="button"
+                                                                    class="btn btn-primary">¡Ok! Lo entendí</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <h5 class="alert alert-dismissible alert-info">Total a pagar: ${{costo}}</h5>
+                                    <div class=" alert alert-dismissible alert-info">
+                                        <h5>Costo de retiro: ${{costo}}</h5>
+                                        <h5>Costo por envío: ${{costoFijo}}</h5>
+                                        <h5>Costo variable (2%): ${{costoVar}}</h5>
+                                        <h5 class="">Total a pagar: ${{costoTot}}</h5>
+                                    </div>
+                                    <button class="btn btn-secondary" href="" role="button"
+                                        ng-click="cambiarCuando('4')">Anterior
+                                        &raquo;</button>
+                                    <button class="btn btn-primary" href="/indexDeliverEat.html" role="button"
+                                        ng-click="confirmar()">Confirmar
+                                        Pago
+                                        &raquo;</button>
+                                    <button class="hide" style="visibility: hidden;" data-toggle="modal"
+                                        data-target="#modalConfirmar" id="btnConfirmarModal"></button>
+                                    <div class="modal" id="modalConfirmar">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Pedido Confirmado!</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Hemos recibido tu pedido estamos en camino</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button data-dismiss="modal" type="button"
+                                                        onclick="location.href = '//127.0.0.1:5500/indexDeliverEat!.html'"
+                                                        class="btn btn-primary">¡Ok!
+                                                        Muchas Gracias</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div ng-show="efectivo == true">
-                            <!-- Pago en efectivo-->
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">¿Con cuánto va a pagar?: </label>
-                                <input ng-model="cantEfvo" type="number" class="form-control" id="cantEfvo"
-                                    aria-describedby="emailHelp" placeholder="Ingrese monto">
-                                <small>El monto se utiliza para que el cadete lleve el cambio justo</small>
-                            </div>
-                        </div>
-
-                        <div ng-show="efectivo == false">
-                            <!-- Pago con tarjeta-->
-                            <div class="form-group">
-                                <label for="pagoTitular">Titular: </label>
-                                <input ng-model="pagoTitular" type="text" class="form-control" id="pagoTitular"
-                                    placeholder="Ingrese el nombre como aparece en la tarjeta">
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label for="numTarjeta">Número de tarjeta: </label>
-                                    <input ng-model="numTarjeta" type="number" class="form-control" id="numTarjeta"
-                                        placeholder="Ingrese número">
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                    <label for="vencimiento">Fecha de Vencimiento: </label>
-                                    <input ng-model="vencimiento" type="month" class="form-control " min="2020-09" max="3000-12" id="vencimiento"
-                                        placeholder="Ingrese calle">
-                                </div>
-                                <div class="form-group col-md-4">
-
-                                    <label for="exampleInputEmail1">CVC: </label>
-                                    <input ng-model="CVC" type="number" class="form-control" id="CVC" placeholder="Ingrese cvc">
-                                    <small>
-                                        <a class="nav-link"
-                                            href="https://help.gopay.com/en/knowledge-base/security/what-is-cvv-cvc-code-and-where-can-i-find-it-on-my-card"
-                                            target="_blank"><img src="/CSS/question-circle-regular.svg" height="20em">
-                                            ¿Qué
-                                            es CVC?</a>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8"></div>
-                            <div class="col-md-4">
-                                <button class="btn btn-primary" href="" role="button" ng-click="confirmar()">Confirmar
-                                    Pago
-                                    &raquo;</button>
                             </div>
                         </div>
                     </div>
@@ -444,6 +529,8 @@
             </div>
         </div>
         </div> <!-- /container -->
+
+
 
     </main>
 

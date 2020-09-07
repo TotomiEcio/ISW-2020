@@ -21,7 +21,12 @@ myApp.controller("myCtrl", function ($scope, $http) {
     $scope.mostrar = "1";
 
     $scope.costo;
+    $scope.costoVar;
+    $scope.costoFijo = 50;
 
+    $scope.costoTot;
+
+    var nivel = 0;
     var regexTarjeta = new RegExp("(^4[0-9]{12}(?:[0-9]{3})?$)");
     var regexCVC = new RegExp("/^[0-9]{3,4}$/")
 
@@ -68,6 +73,9 @@ myApp.controller("myCtrl", function ($scope, $http) {
         //Veo el progreso del que queres
         if (queDescOK) {
             progreso = 50;
+            document.getElementById("descripcion").classList.remove("is-invalid");
+        } else {
+            document.getElementById("descripcion").classList.add("is-invalid");
         }
         if (fotoOk) {
             progreso += 50;
@@ -79,21 +87,30 @@ myApp.controller("myCtrl", function ($scope, $http) {
             que = true;
         }
 
+
         //progreso origen
         progreso = 0;
         if ($scope.mapa == undefined) {} else {
             if ($scope.mapa) {
                 if (costoPedidoOk) {
                     progreso = 100;
+                    document.getElementById("costoPedido").classList.remove("is-invalid");
                 } else {
                     progreso = 50;
+                    document.getElementById("costoPedido").classList.add("is-invalid")
                 }
             } else {
                 if (origenCalleOk) {
                     progreso += 20;
+                    document.getElementById("dirOrigen").classList.remove("is-invalid");
+                } else {
+                    document.getElementById("dirOrigen").classList.add("is-invalid");
                 }
                 if (origenNumOk) {
                     progreso += 20;
+                    document.getElementById("numOrigen").classList.remove("is-invalid");
+                } else {
+                    document.getElementById("numOrigen").classList.add("is-invalid");
                 }
                 if (origenPisoOk) {
                     progreso += 20;
@@ -103,6 +120,9 @@ myApp.controller("myCtrl", function ($scope, $http) {
                 }
                 if (costoPedidoOk) {
                     progreso += 20;
+                    document.getElementById("costoPedido").classList.remove("is-invalid");
+                } else {
+                    document.getElementById("costoPedido").classList.add("is-invalid");
                 }
             }
         }
@@ -114,24 +134,32 @@ myApp.controller("myCtrl", function ($scope, $http) {
         }
 
         //progreso destino
-        progreso = 0;
-        if (destinoCalleOk) {
-            progreso += 25;
-        }
-        if (destinoNumOk) {
-            progreso += 25;
-        }
-        if (destinoPisoOk) {
-            progreso += 25;
-        }
-        if (destinoDptoOk) {
-            progreso += 25;
-        }
-        document.getElementById("barraDestino").classList.remove("bg-success");
-        document.getElementById("barraDestino").style.width = progreso + "%";
-        if (progreso == 100) {
-            document.getElementById("barraDestino").classList.add("bg-success");
-            destino = true;
+        if ($scope.mostrar >= "4") {
+            progreso = 0;
+            if (destinoCalleOk) {
+                progreso += 25;
+                document.getElementById("dirDestino").classList.remove("is-invalid");
+            } else {
+                document.getElementById("dirDestino").classList.add("is-invalid");
+            }
+            if (destinoNumOk) {
+                progreso += 25;
+                document.getElementById("numDestino").classList.remove("is-invalid");
+            } else {
+                document.getElementById("numDestino").classList.add("is-invalid");
+            }
+            if (destinoPisoOk) {
+                progreso += 25;
+            }
+            if (destinoDptoOk) {
+                progreso += 25;
+            }
+            document.getElementById("barraDestino").classList.remove("bg-success");
+            document.getElementById("barraDestino").style.width = progreso + "%";
+            if (progreso == 100) {
+                document.getElementById("barraDestino").classList.add("bg-success");
+                destino = true;
+            }
         }
 
         //progreso cuando
@@ -139,13 +167,14 @@ myApp.controller("myCtrl", function ($scope, $http) {
         if ($scope.programa == undefined) {} else if ($scope.programa) {
             if (cuandoHoraOk) {
                 progreso += 50;
-            }
+                document.getElementById("horaEntrega").classList.remove("is-invalid");
+            } else{document.getElementById("horaEntrega").classList.add("is-invalid");}
             if (cuandoFechaOk) {
                 progreso += 50;
-            }
+                document.getElementById("fechaEntrega").classList.remove("is-invalid");
+            } else{document.getElementById("fechaEntrega").classList.add("is-invalid");}
         } else {
             progreso = 100;
-
         }
         document.getElementById("barraCuando").classList.remove("bg-success");
         document.getElementById("barraCuando").style.width = progreso + "%";
@@ -207,9 +236,11 @@ myApp.controller("myCtrl", function ($scope, $http) {
     }
 
     $scope.cambiarOrigenMaps = function (paso) {
-        if ($scope.costoPedido != undefined && $scope.costoPedido > 0) {
+        if ($scope.costoPedido != undefined && $scope.costoPedido >= 0) {
             costoPedidoOk = true;
             $scope.costo = $scope.costoPedido;
+            $scope.costoVar = $scope.costo * 0.02;
+            $scope.costoTot = $scope.costo + $scope.costoVar + $scope.costoFijo;
         } else {
             costoPedidoOk = false;
             $scope.costo = undefined;
@@ -225,7 +256,7 @@ myApp.controller("myCtrl", function ($scope, $http) {
         var dptoOrigen = $scope.dptoOrigen;
 
         try {
-            if (dirOrigen.length < 80) {
+            if (dirOrigen.length < 80 && dirOrigen.length > 0) {
                 origenCalleOk = true;
             } else {
                 origenCalleOk = false;
@@ -238,7 +269,7 @@ myApp.controller("myCtrl", function ($scope, $http) {
             origenNumOk = false;
         }
 
-        if ($scope.costoPedido != undefined && $scope.costoPedido > 0) {
+        if ($scope.costoPedido != undefined && $scope.costoPedido >= 0) {
             costoPedidoOk = true;
             $scope.costo = $scope.costoPedido;
         } else {
@@ -273,7 +304,7 @@ myApp.controller("myCtrl", function ($scope, $http) {
         var dptoDestino = $scope.dptoDestino;
 
         try {
-            if (dirDestino.length < 80) {
+            if (dirDestino.length < 80 && dirDestino.length > 0) {
                 destinoCalleOk = true;
             } else {
                 destinoCalleOk = false;
@@ -308,7 +339,7 @@ myApp.controller("myCtrl", function ($scope, $http) {
         if ($scope.programa != undefined && $scope.programa == true) {
             var fecha = $scope.fechaEntrega;
             var date = new Date(Date.now());
-            if (fecha > date) {
+            if (fecha >= date) {
                 cuandoFechaOk = true;
             } else {
                 cuandoFechaOk = false;
@@ -325,7 +356,7 @@ myApp.controller("myCtrl", function ($scope, $http) {
     $scope.confirmar = function () {
         if ($scope.efectivo != undefined) {
             if ($scope.efectivo) {
-                if (costoPedidoOk && $scope.cantEfvo > $scope.costo) {
+                if (costoPedidoOk && $scope.cantEfvo > $scope.costoTot) {
                     pagoEfvoOk = true;
                 } else {
                     pagoEfvoOk = false;
@@ -360,9 +391,8 @@ myApp.controller("myCtrl", function ($scope, $http) {
     }
 
     $scope.confirmacionFinal = function () {
-        if(que && origen && destino && cuando && pago)
-        {
-            alert("Pedido Exitoso");
+        if (que && origen && destino && cuando && pago) {
+            document.getElementById("btnConfirmarModal").click();
         }
     }
 })
