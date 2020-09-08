@@ -28,7 +28,7 @@ myApp.controller("myCtrl", function ($scope, $http) {
 
     var nivel = 0;
     var regexTarjeta = new RegExp("(^4[0-9]{12}(?:[0-9]{3})?$)");
-    var regexCVC = new RegExp("/^[0-9]{3,4}$/")
+    var regexCVC = new RegExp("^[0-9]{3,4}$")
 
     var queDescOK = false;
     var fotoOk = true;
@@ -194,6 +194,9 @@ myApp.controller("myCtrl", function ($scope, $http) {
                 //revisar pago efectivo
                 if (pagoEfvoOk) {
                     progreso += 100;
+                    document.getElementById("cantEfvo").classList.remove("is-invalid");
+                } else {
+                    document.getElementById("cantEfvo").classList.add("is-invalid");
                 }
             } else {
                 if (pagoTitularOk) {
@@ -201,12 +204,21 @@ myApp.controller("myCtrl", function ($scope, $http) {
                 }
                 if (pagoNumTarOk) {
                     progreso += 25;
+                    document.getElementById("numTarjeta").classList.remove("is-invalid");
+                } else {
+                    document.getElementById("numTarjeta").classList.add("is-invalid");
                 }
                 if (pagoVencOk) {
                     progreso += 25;
+                    document.getElementById("numTarjeta").classList.remove("is-invalid");
+                } else {
+                    document.getElementById("numTarjeta").classList.add("is-invalid");
                 }
                 if (pagoCVCOk) {
                     progreso += 25;
+                    document.getElementById("CVC").classList.remove("is-invalid");
+                } else {
+                    document.getElementById("CVC").classList.add("is-invalid");
                 }
             }
         }
@@ -294,7 +306,7 @@ myApp.controller("myCtrl", function ($scope, $http) {
 
         if (dptoOrigen == undefined) {
             origenDptoOk = true;
-        } else if (dptoOrigen > 0) {
+        } else if (dptoOrigen.length > 0) {
             origenDptoOk = true;
         } else {
             origenDptoOk = false;
@@ -334,7 +346,7 @@ myApp.controller("myCtrl", function ($scope, $http) {
 
         if (dptoDestino == undefined) {
             destinoDptoOk = true;
-        } else if (dptoDestino > 0) {
+        } else if (dptoDestino.length > 0) {
             destinoDptoOk = true;
         } else {
             destinoDptoOk = false;
@@ -363,7 +375,7 @@ myApp.controller("myCtrl", function ($scope, $http) {
     $scope.confirmar = function () {
         if ($scope.efectivo != undefined) {
             if ($scope.efectivo) {
-                if (costoPedidoOk && $scope.cantEfvo > $scope.costoTot) {
+                if (costoPedidoOk && $scope.cantEfvo >= $scope.costoTot) {
                     pagoEfvoOk = true;
                 } else {
                     pagoEfvoOk = false;
@@ -375,7 +387,7 @@ myApp.controller("myCtrl", function ($scope, $http) {
                     pagoNumTarOk = true;
                 }
 
-                if (regexCVC.text($scope.CVC)) {
+                if (regexCVC.test($scope.CVC)) {
                     pagoCVCOk = true;
                 }
 
