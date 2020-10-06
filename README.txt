@@ -24,6 +24,9 @@ ISW-2020
 |  |__Unidad 4
 |
 
-Lineas Base:
+Criterio de Branching:
  - master: se utiliza para guardar los Trabajos Prácticos ya corregidos como tambien la bibliografía, documentos y papers
  - por-revisar: se utiliza para guardar los Items que todavía no estan listos. Una vez que fue entregado ese Item y no se va a modificar mas se hace el merge de las dos ramas
+
+Criterio de Linea Base:
+- Se marca una nueva version cada vez que se realice un merge de la rama por-revisar con la master
